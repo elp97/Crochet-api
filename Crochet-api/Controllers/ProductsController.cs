@@ -31,7 +31,6 @@ namespace Crochet_api.Controllers
         public Products GetProductByID(int productID)
         {
             var context = new DataContext();
-
             Products productDetails = context.Products.Single(x => x.ProductID == productID);
             return productDetails;
         }
@@ -85,7 +84,6 @@ namespace Crochet_api.Controllers
             var context = new DataContext();
             List<Images> imageDetails = context.Images.Where(x => x.ProductID == productID).ToList();
             return imageDetails;
-
         }
 
         [HttpGet("search")]
