@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crochet-api", "Crochet-api\Crochet-api.csproj", "{DE24D919-5F58-42F8-9FD8-2293D3E33F69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE24D919-5F58-42F8-9FD8-2293D3E33F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE24D919-5F58-42F8-9FD8-2293D3E33F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE24D919-5F58-42F8-9FD8-2293D3E33F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE24D919-5F58-42F8-9FD8-2293D3E33F69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BCEFC170-F585-4FE9-85B9-30983BE979B5}
+	EndGlobalSection
+EndGlobal
