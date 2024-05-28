@@ -483,4 +483,4 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
-/Crochet-api/Data/*
+connectionStrings.json

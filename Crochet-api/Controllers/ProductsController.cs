@@ -10,11 +10,15 @@ namespace Crochet_api.Controllers
     [Route("[controller]")]
     public class ProductsController : Controller
     {
+        private readonly DataContext _context;
+        public ProductsController(DataContext context) {
+            _context = context;
+        }
+
         [HttpGet]
-        public IEnumerable<Products> GetAll()
+        public List<Products> GetAll()
         {
-            var context = new DataContext();
-            var allProducts = context.Products.ToList();
+            var allProducts = _context.Products.ToList();
             return allProducts;
         }
 
@@ -22,32 +26,28 @@ namespace Crochet_api.Controllers
         [HttpGet("getTypes")]
         public List<ProductsTypeCount> GetTypes()
         {
-            var context = new DataContext();
-            List<ProductsTypeCount> productTypes = context.Products.GroupBy(x => x.Type).Select(i => new ProductsTypeCount {Type = i.Key, Count = i.Select(t => t.Type).Count() }).ToList();
+            List<ProductsTypeCount> productTypes = _context.Products.GroupBy(x => x.Type).Select(i => new ProductsTypeCount {Type = i.Key, Count = i.Select(t => t.Type).Count() }).ToList();
             return productTypes;
         }
 
         [HttpGet("getProductDetailsByID/{productID}")]
         public Products GetProductByID(int productID)
         {
-            var context = new DataContext();
-            Products productDetails = context.Products.Single(x => x.ProductID == productID);
+            Products productDetails = _context.Products.Single(x => x.ProductID == productID);
             return productDetails;
         }
 
 
         [HttpGet("getAllDetailsByID/{productID}")]
         public List<Products> getAllDetailsByID(int productID) {
-            var context = new DataContext();
-            var allDetails = context.Products.Join(context.Images, products => products.ProductID, images => images.ProductID, (products, images) => new { Products = products, Images = images}).Where(x => x.Products.ProductID == productID);
+            var allDetails = _context.Products.Join(_context.Images, products => products.ProductID, images => images.ProductID, (products, images) => new { Products = products, Images = images}).Where(x => x.Products.ProductID == productID);
             return new List<Products>();
         }
 
         [HttpGet("getProductDetailsByType/{productType}")]
         public List<DetailedProducts> getProductDetailsByType(string productType)
         {
-            var context = new DataContext();
-            List<ProductsWithImages> allDetails = context.Products.Join(context.Images, products => products.ProductID, images => images.ProductID, (products, images) => new ProductsWithImages { Products = products, Images = images }).Where(x => x.Products.Type.ToLower() == productType.ToLower()).ToList();
+            List<ProductsWithImages> allDetails = _context.Products.Join(_context.Images, products => products.ProductID, images => images.ProductID, (products, images) => new ProductsWithImages { Products = products, Images = images }).Where(x => x.Products.Type.ToLower() == productType.ToLower()).ToList();
             List<DetailedProducts> mappedProducts = new List<DetailedProducts>();
             foreach (ProductsWithImages item in allDetails)
             {
@@ -73,24 +73,21 @@ namespace Crochet_api.Controllers
 
         [HttpGet("getProductsByType/{productType}")]
         public List<Products> getProductsByType(string productType) { 
-            var context = new DataContext();
-            List<Products> productDetails = context.Products.Where(x => x.Type.ToLower() == productType.ToLower()).ToList();
+            List<Products> productDetails = _context.Products.Where(x => x.Type.ToLower() == productType.ToLower()).ToList();
             return productDetails;    
         }
 
         [HttpGet("getImagesByID/{productID}")]
         public List<Images> getProductsByType(int productID)
         {
-            var context = new DataContext();
-            List<Images> imageDetails = context.Images.Where(x => x.ProductID == productID).ToList();
+            List<Images> imageDetails = _context.Images.Where(x => x.ProductID == productID).ToList();
             return imageDetails;
         }
 
         [HttpGet("search")]
         public List<Products> search(string searchItem)
         {
-            var context = new DataContext();
-            List<Products> productFound = context.Products.Where(x => x.Type.ToLower() == searchItem.ToLower() || x.Name.ToLower() == searchItem.ToLower()).ToList();
+            List<Products> productFound = _context.Products.Where(x => x.Type.ToLower() == searchItem.ToLower() || x.Name.ToLower() == searchItem.ToLower()).ToList();
             return productFound;
 
         }

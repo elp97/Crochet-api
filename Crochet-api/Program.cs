@@ -1,4 +1,10 @@
+using Crochet_api.Data;
+using Microsoft.AspNetCore;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddJsonFile("connectionStrings.json", optional: false, reloadOnChange: true);
 
 // Add services to the container.
 
@@ -12,6 +18,13 @@ builder.Services.AddCors(option =>
     {
         item.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
     });
+});
+
+
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    var connect = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseSqlServer(connect);
 });
 
 var app = builder.Build();
